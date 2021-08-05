@@ -1,69 +1,94 @@
 # nuxt-typescript-error
 
-## Build Setup
+## A fresh created Nuxt App shows TypeScript errors when building
 
-```bash
-# install dependencies
-$ npm install
+### Steps to reproduce
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+* Initialize a Nuxt App with TypeScript as programming language
+* Add a component that uses props with PropType or PropOptions
+* Use the props in your component, e.g. by adding a computed property or by accessing props in the mounted hook
+* Run the `build` command
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+### Expected result
 
-# generate static project
-$ npm run generate
+* Build compiles successfully without any errors
+
+### Actual result
+
+* TypeScript errors
+
 ```
+Hash: 6251f8fae46627c67cb3
+Version: webpack 4.46.0
+Time: 9301ms
+Built at: 08/05/2021 4:51:38 PM
+     Asset       Size  Chunks               Chunk Names
+03bd1aa.js    213 KiB       1  [immutable]  commons/app
+20232b0.js  559 bytes       3  [immutable]  components/test
+6bbd920.js   6.86 KiB    5, 4  [immutable]  pages/index
+9b32ed3.js   6.58 KiB       4  [immutable]  components/tutorial
+  LICENSES  407 bytes                       
+adeb2d1.js   2.33 KiB       6  [immutable]  runtime
+d5117bf.js   1.85 KiB       2  [immutable]  components/nuxt-logo
+e23bc49.js   57.6 KiB       0  [immutable]  app
+Entrypoint app = adeb2d1.js 03bd1aa.js e23bc49.js
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+ERROR in components/Test.vue:25:22
+TS2339: Property 'foo' does not exist on type 'ComponentOptions<Vue, DefaultData<Vue>, DefaultMethods<Vue>, DefaultComputed, PropsDefinition<DefaultProps>, DefaultProps>'.
+    23 |   },
+    24 |   mounted () {
+  > 25 |     console.log(this.foo)
+       |                      ^^^
+    26 |     console.log(this.bar)
+    27 |     console.log(this.$axios)
+    28 |     console.log(this.$el)
 
-## Special Directories
+ERROR in components/Test.vue:26:22
+TS2339: Property 'bar' does not exist on type 'ComponentOptions<Vue, DefaultData<Vue>, DefaultMethods<Vue>, DefaultComputed, PropsDefinition<DefaultProps>, DefaultProps>'.
+    24 |   mounted () {
+    25 |     console.log(this.foo)
+  > 26 |     console.log(this.bar)
+       |                      ^^^
+    27 |     console.log(this.$axios)
+    28 |     console.log(this.$el)
+    29 |   }
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+ERROR in components/Test.vue:27:22
+TS2339: Property '$axios' does not exist on type 'ComponentOptions<Vue, DefaultData<Vue>, DefaultMethods<Vue>, DefaultComputed, PropsDefinition<DefaultProps>, DefaultProps>'.
+    25 |     console.log(this.foo)
+    26 |     console.log(this.bar)
+  > 27 |     console.log(this.$axios)
+       |                      ^^^^^^
+    28 |     console.log(this.$el)
+    29 |   }
+    30 | })
 
-### `assets`
+ERROR in components/Test.vue:28:22
+TS2339: Property '$el' does not exist on type 'ComponentOptions<Vue, DefaultData<Vue>, DefaultMethods<Vue>, DefaultComputed, PropsDefinition<DefaultProps>, DefaultProps>'.
+    26 |     console.log(this.bar)
+    27 |     console.log(this.$axios)
+  > 28 |     console.log(this.$el)
+       |                      ^^^
+    29 |   }
+    30 | })
+    31 | </script>
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+ FATAL  Nuxt build error                                                                                                                                                                        16:51:38
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+  at WebpackBundler.webpackCompile (node_modules/@nuxt/webpack/dist/webpack.js:2127:21)
+  at runMicrotasks (<anonymous>)
+  at processTicksAndRejections (internal/process/task_queues.js:95:5)
+  at async WebpackBundler.build (node_modules/@nuxt/webpack/dist/webpack.js:2076:5)
+  at async Builder.build (node_modules/@nuxt/builder/dist/builder.js:327:5)
+  at async Object.run (node_modules/@nuxt/cli/dist/cli-build.js:110:7)
+  at async NuxtCommand.run (node_modules/@nuxt/cli/dist/cli-index.js:413:7)
 
 
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+   ╭─────────────────────────────╮
+   │                             │
+   │   ✖ Nuxt Fatal Error        │
+   │                             │
+   │   Error: Nuxt build error   │
+   │                             │
+   ╰─────────────────────────────╯
+```
